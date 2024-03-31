@@ -4,11 +4,9 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "Node: Nodemon",
-      "runtimeExecutable": "npm",
-      "runtimeArgs": ["start"],
-      "protocol": "inspector",
-      "outputCapture": "std"
+      "name": "Node: Attach to process",
+      "processId": "${command:PickProcess}",
+      "restart": true
     }
   ]
 }

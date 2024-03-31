@@ -1,15 +1,21 @@
 const express = require('express');
-const logger = require('./config/logger');
 const morgan = require('morgan');
+const api = require('./api');
 
+const logger = require('./config/logger');
+
+// Init App
 const app = express();
 
 // Setup middleware
+
 app.use(
   morgan('combined', { stream: { write: (message) => logger.info(message) } })
 );
 
 app.get('/', (req, res, next) => res.send('Welcome to the API'));
+
+app.use('/api', api);
 
 // No route fount handler
 app.use((req, res, next) => {
