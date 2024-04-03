@@ -1,6 +1,7 @@
 const express = require('express');
-const morgan = require('morgan');
-const api = require('./api');
+const morgan = require('morgan')
+const bodyParser = require('body-parser');
+const api = require('./api/v1');
 
 const logger = require('./config/logger');
 
@@ -13,9 +14,15 @@ app.use(
   morgan('combined', { stream: { write: (message) => logger.info(message) } })
 );
 
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }));
+
+// parse application/json
+app.use(bodyParser.json());
+
 app.get('/', (req, res, next) => res.send('Welcome to the API'));
 
-app.use('/api', api);
+app.use('/api/v1', api);
 
 // No route fount handler
 app.use((req, res, next) => {
